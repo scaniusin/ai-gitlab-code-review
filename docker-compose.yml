@@ -29,21 +29,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-      - "8080:80"
-    environment:
-      - AI_SERVICE_TYPE=${AI_SERVICE_TYPE:-openai}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - OPENAI_API_MODEL=${OPENAI_API_MODEL:-gpt-3.5-turbo}
-      - AZURE_OPENAI_API_BASE=${AZURE_OPENAI_API_BASE}
-      - AZURE_OPENAI_API_VERSION=${AZURE_OPENAI_API_VERSION}
-      - OLLAMA_HOST=http://ollama:11434
-      - OLLAMA_MODEL=${OLLAMA_MODEL:-custom-qwen}
-      - OLLAMA_TIMEOUT=${OLLAMA_TIMEOUT:-120}
-      - OLLAMA_MAX_TOKENS=${OLLAMA_MAX_TOKENS:-1800}
-      - GITLAB_TOKEN=${GITLAB_TOKEN}
-      - GITLAB_URL=${GITLAB_URL}
-      - EXPECTED_GITLAB_TOKEN=${EXPECTED_GITLAB_TOKEN}
-      - AI_SERVICE_TYPE=${AI_SERVICE_TYPE}
+      - "9655:80"
     networks:
       gitlab_review_network:
         ipv4_address: 172.21.0.11
