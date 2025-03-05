@@ -11,19 +11,19 @@ networks:
     external: true
 
 services:
-  ollama:
-    container_name: fn_ollama
-    build:
-      context: ./ollama
-      dockerfile: Dockerfile
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama-data:/root/.ollama
-    networks:
-      gitlab_review_network:
-        ipv4_address: 172.21.0.10
-    restart: unless-stopped
+  # ollama:
+  #   container_name: fn_ollama
+  #   build:
+  #     context: ./ollama
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama-data:/root/.ollama
+  #   networks:
+  #     gitlab_review_network:
+  #       ipv4_address: 172.21.0.10
+  #   restart: unless-stopped
 
   gitlab-review:
     container_name: fn_gitlab_review
@@ -50,9 +50,9 @@ services:
         ipv4_address: 172.21.0.11
       follnews_default:
         # No static IP needed for this network
-    depends_on:
-      - ollama
+    # depends_on:
+    #   - ollama
     restart: unless-stopped
 
-volumes:
-  ollama-data:
+# volumes:
+#   ollama-data:
