@@ -76,12 +76,32 @@ class OpenAIService(AIService):
     
     def generate_review(self, messages: List[Dict[str, str]], temperature: float = 0.7) -> str:
         try:
-            completions = openai.ChatCompletion.create(
-                model=os.environ.get("OPENAI_API_MODEL") or "gpt-3.5-turbo",
-                temperature=temperature,
-                stream=False,
-                messages=messages
-            )
+            # Check if we're using Azure OpenAI
+            if os.environ.get("AZURE_OPENAI_API_BASE"):
+                completions = openai.ChatCompletion.create(
+                    model=os.environ.get("OPENAI_API_MODEL") or "gpt-3.5-turbo",
+                    temperature=temperature,
+                    stream=False,
+                    messages=messages
+                )
+            else:
+                # For newer OpenAI client versions
+                try:
+                    client = openai.OpenAI(api_key=self.api_key)
+                    completions = client.chat.completions.create(
+                        model=os.environ.get("OPENAI_API_MODEL") or "gpt-3.5-turbo",
+                        temperature=temperature,
+                        messages=messages
+                    )
+                    return completions.choices[0].message.content.strip()
+                except (AttributeError, ImportError):
+                    # Fall back to legacy version
+                    completions = openai.ChatCompletion.create(
+                        model=os.environ.get("OPENAI_API_MODEL") or "gpt-3.5-turbo",
+                        temperature=temperature,
+                        stream=False,
+                        messages=messages
+                    )
             return completions.choices[0].message["content"].strip()
         except Exception as e:
             logging.error(f"OpenAI API error: {str(e)}")
