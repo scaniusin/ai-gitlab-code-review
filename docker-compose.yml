@@ -43,7 +43,7 @@ services:
       - GITLAB_TOKEN=${GITLAB_TOKEN}
       - GITLAB_URL=${GITLAB_URL}
       - EXPECTED_GITLAB_TOKEN=${EXPECTED_GITLAB_TOKEN}
-      - AI_SERVICE_TYPE=ollama
+      - AI_SERVICE_TYPE=${AI_SERVICE_TYPE}
     networks:
       gitlab_review_network:
         ipv4_address: 172.21.0.11
