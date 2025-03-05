@@ -77,7 +77,6 @@ class OpenAIService(AIService):
     def generate_review(self, messages: List[Dict[str, str]], temperature: float = 0.7) -> str:
         try:
             completions = openai.ChatCompletion.create(
-                deployment_id=os.environ.get("OPENAI_API_MODEL"),
                 model=os.environ.get("OPENAI_API_MODEL") or "gpt-3.5-turbo",
                 temperature=temperature,
                 stream=False,
